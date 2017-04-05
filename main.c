@@ -3,20 +3,20 @@
 #include <stdlib.h>
 #include "linked_list.h"
 
-#define run_count 10
-#define  n  1000
-#define  m  10000
-#define  m_member  0.99
-#define  m_insert  0.005
-#define  m_delete  0.005
+#define RUN_COUNT 10
+#define  N  1000
+#define  M  10000
+#define  M_MEMBER  0.99
+#define  M_INSERT  0.005
+#define  M_DELETE  0.005
 
 int thread_count;
 
 struct list_node *head = NULL;
 struct list list;
 
-char operation_sequence[m];
-int value_sequence[m];
+char operation_sequence[M];
+int value_sequence[M];
 
 int FillLinkedList(struct list_node *head_p);   //fill linked list with n random unique values
 
@@ -57,9 +57,9 @@ int FillLinkedList(struct list_node *head_p) {
 }
 
 int SetOperationSequence() {
-    int member_count = m_member * m;
-    int insert_count = m_insert * m;
-    int delete_count = m_delete * m;
+    int member_count = M_MEMBER * M;
+    int insert_count = M_INSERT * M;
+    int delete_count = M_DELETE * M;
     int count = 0;
 
     while (count < member_count) {
@@ -83,7 +83,9 @@ int SetOperationSequence() {
 }
 
 int SetValueSequence() {
-
+    for (int i = 0; i < M; i++) {
+        value_sequence[i] = GetRandomValue(0, 65535);
+    }
 }
 
 int GetRandomValue(int start, int end) {
@@ -91,7 +93,7 @@ int GetRandomValue(int start, int end) {
 }
 
 int CallOperationSerial() {
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < M; i++) {
         int val = value_sequence[i];
         switch (operation_sequence[i]) {
             case 'M':
