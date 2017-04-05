@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     Delete(1, &list.head);
     printf("%d \n", Member(4, list.head));
     Print(list);
-
+    SetOperationSequence();
     return 0;
 }
 
@@ -48,6 +48,25 @@ int SetOperationSequence() {
     int member_count = m_member * m;
     int insert_count = m_insert * m;
     int delete_count = m_delete * m;
+    int count = 0;
+
+    while (count < member_count) {
+        operation_sequence[count] = 'M';
+        count++;
+    }
+
+    while (count < insert_count + member_count) {
+        operation_sequence[count] = 'I';
+        count++;
+    }
+
+    while (count < delete_count + insert_count + member_count) {
+        operation_sequence[count] = 'D';
+        count++;
+    }
+    for (int j = 0; j < m; j++) {
+        printf("%c\n", operation_sequence[j]);
+    }
 
 }
 
@@ -55,6 +74,6 @@ int SetValueSequence() {
 
 }
 
-int GetRandomValue(int start, ine end) {
-    
+int GetRandomValue(int start, int end) {
+
 }

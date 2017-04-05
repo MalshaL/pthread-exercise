@@ -1,0 +1,1 @@
+CMakeLists.txt not found in D:\Semester7\Concurrent Programming\my work\lab2\pthread-exercise
