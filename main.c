@@ -11,6 +11,10 @@
 #define  m_delete  0.005
 
 int thread_count;
+
+struct list_node *head = NULL;
+struct list list;
+
 char operation_sequence[m];
 int value_sequence[m];
 
@@ -22,9 +26,13 @@ int SetValueSequence();  //set the value_sequence with m random values
 
 int GetRandomValue(int start, int end); //generate a random value between start and end
 
+int CallOperationSerial();  //call operation based on the array index
+
 int main(int argc, char *argv[]) {
-    struct list_node *head = NULL;
-    struct list list;
+    thread_count = 8;
+
+//    *head = NULL;
+//    struct list list;
     list.head = head;
 
     Insert(5, &list.head);
@@ -36,7 +44,11 @@ int main(int argc, char *argv[]) {
     Delete(1, &list.head);
     printf("%d \n", Member(4, list.head));
     Print(list);
+
+
     SetOperationSequence();
+
+
     return 0;
 }
 
@@ -64,9 +76,9 @@ int SetOperationSequence() {
         operation_sequence[count] = 'D';
         count++;
     }
-    for (int j = 0; j < m; j++) {
-        printf("%c\n", operation_sequence[j]);
-    }
+//    for (int j = 0; j < m; j++) {
+//        printf("%c\n", operation_sequence[j]);
+//    }
 
 }
 
@@ -78,3 +90,21 @@ int GetRandomValue(int start, int end) {
 
 }
 
+int CallOperationSerial() {
+    for (int i = 0; i < m; i++) {
+        int val = value_sequence[i];
+        switch (operation_sequence[i]) {
+            case 'M':
+                Member(val, list.head);
+                break;
+            case 'I':
+                Insert(val, &list.head);
+                break;
+            case 'D':
+                Delete(val, &list.head);
+                break;
+            default:
+                break;
+        }
+    }
+}
