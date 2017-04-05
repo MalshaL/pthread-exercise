@@ -1,0 +1,4 @@
+Text written: Some Text
+Integer: 9
+Float: 2.342340
+Char: S

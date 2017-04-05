@@ -77,3 +77,4 @@ int SetValueSequence() {
 int GetRandomValue(int start, int end) {
 
 }
+
