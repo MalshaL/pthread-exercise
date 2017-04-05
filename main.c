@@ -10,6 +10,7 @@
 #define  m_insert  0.005
 #define  m_delete  0.005
 
+int thread_count;
 char operation_sequence[m];
 int value_sequence[m];
 
@@ -18,6 +19,8 @@ int FillLinkedList(struct list_node *head_p);   //fill linked list with n random
 int SetOperationSequence();     //set operation_sequence with randomized 'M', 'I', or 'D'
 
 int SetValueSequence();  //set the value_sequence with m random values
+
+int GetRandomValue(int start, int end); //generate a random value between start and end
 
 int main(int argc, char *argv[]) {
     struct list_node *head = NULL;
@@ -37,14 +40,21 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-int FillLinkedList(struct list_node *head_p){
+int FillLinkedList(struct list_node *head_p) {
 
 }
 
-int SetOperationSequence(){
+int SetOperationSequence() {
+    int member_count = m_member * m;
+    int insert_count = m_insert * m;
+    int delete_count = m_delete * m;
 
 }
 
-int SetValueSequence(){
+int SetValueSequence() {
 
+}
+
+int GetRandomValue(int start, ine end) {
+    
 }
