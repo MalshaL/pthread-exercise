@@ -47,9 +47,7 @@ int main(int argc, char *argv[]) {
     printf("%d \n", Member(4, list.head));
     Print(list);
 
-    for (int i = 0; i < 30; i++) {
-        printf("RANDMAX: %d\n", GetRandomValue(0, 65535));
-    }
+    SetOperationSequence();
 
 
     return 0;
@@ -79,9 +77,16 @@ int SetOperationSequence() {
         operation_sequence[count] = 'D';
         count++;
     }
-//    for (int j = 0; j < m; j++) {
-//        printf("%c\n", operation_sequence[j]);
-//    }
+    for (int i = 0; i < M; i++) {
+        int a = GetRandomValue(0, M - 1);
+        int b = GetRandomValue(0, M - 1);
+        char temp = operation_sequence[a];
+        operation_sequence[a] = operation_sequence[b];
+        operation_sequence[b] = temp;
+    }
+    for (int i = 0; i < M; i++) {
+        printf("%c\n", operation_sequence[i]);
+    }
 
 }
 
