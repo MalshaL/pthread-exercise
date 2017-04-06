@@ -16,7 +16,9 @@
 int thread_count;
 
 struct list_node *head = NULL;
-struct list list;
+struct list listSerial;
+struct list listMutex;
+struct list listRWLocks;
 
 char operation_sequence[M];
 int value_sequence[M];
@@ -62,85 +64,98 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
     thread_count = 2;
     chunk_length = M / thread_count;
-    thread_handles = malloc(sizeof(pthread_t) * thread_count);
 
-    FillLinkedList();
+
+//    FillLinkedList();
     SetValueSequence();
     SetOperationSequence();
 
-    RunSerialOperations();
-    RunMutexOperations();
-    RunRWLockOperations();
+    FillLinkedList();
 
-//    f = fopen(filename, "a");
-//    if (f == NULL) {
-//        printf("Error\n");
-//        exit(1);
-//    }
-//    WriteTextToFile("Case 1: \n");
-//    for (int mythreadcount = 0; mythreadcount < 4; mythreadcount++) {
-//        thread_count = threadcounts[mythreadcount];
+
+//    RunSerialOperations();
+//    Print(listSerial);
+//    printf("\n-------------\n\n");
 //
-//        WriteTextToFile("\n----------------Thread Count----------------");
-//        WriteDoubleToFile((float) thread_count);
+//    RunMutexOperations();
+//    Print(listMutex);
+//    printf("\n-------------\n\n");
 //
-//        float mymean;
-//
-//        //Run serial
-//        WriteTextToFile("\n--------Serial-------- \n");
-//        if (thread_count == 1) {
-//            for (int runn = 0; runn < RUN_COUNT; runn++) {
-//                double start, finish, elapsed;
-//                GET_TIME(start);
-//                RunSerialOperations();
-//                GET_TIME(finish);
-//                elapsed = finish - start;
-//                WriteDoubleToFile(elapsed);
-//                times[runn] = elapsed;
-//            }
-//            WriteTextToFile("\nAverage:    ");
-//            mymean = calculateMean(times);
-//            WriteDoubleToFile(mymean);
-//            WriteTextToFile("\nStandard Deviation:    ");
-//            WriteDoubleToFile(calculateSD(times, mymean));
-//        }
-//
-//        //Run Mutex
-//        WriteTextToFile("\n--------Mutex-------- \n");
-//        for (int runn = 0; runn < RUN_COUNT; runn++) {
-//            double start, finish, elapsed;
-//            GET_TIME(start);
-//            RunMutexOperations();
-//            GET_TIME(finish);
-//            elapsed = finish - start;
-//            WriteDoubleToFile(elapsed);
-//            times[runn] = elapsed;
-//        }
-//        WriteTextToFile("\nAverage:    ");
-//        mymean = calculateMean(times);
-//        WriteDoubleToFile(mymean);
-//        WriteTextToFile("\nStandard Deviation:    ");
-//        WriteDoubleToFile(calculateSD(times, mymean));
-//
-//        //Run RWLocks
-//        WriteTextToFile("\n--------Read Write Locks-------- \n");
-//        for (int runn = 0; runn < RUN_COUNT; runn++) {
-//            double start, finish, elapsed;
-//            GET_TIME(start);
-//            RunRWLockOperations();
-//            GET_TIME(finish);
-//            elapsed = finish - start;
-//            WriteDoubleToFile(elapsed);
-//            times[runn] = elapsed;
-//        }
-//        WriteTextToFile("\nAverage:    ");
-//        mymean = calculateMean(times);
-//        WriteDoubleToFile(mymean);
-//        WriteTextToFile("\nStandard Deviation:    ");
-//        WriteDoubleToFile(calculateSD(times, mymean));
-//    }
-//
-//    fclose(f);
+//    RunRWLockOperations();
+//    Print(listRWLocks);
+//    printf("\n-------------\n\n");
+
+    f = fopen(filename, "a");
+    if (f == NULL) {
+        printf("Error\n");
+        exit(1);
+    }
+    printf("\n file opened\n");
+    WriteTextToFile("Case 1: \n");
+    for (int mythreadcount = 0; mythreadcount < 4; mythreadcount++) {
+        thread_count = threadcounts[mythreadcount];
+        printf("\n thread count: %d-----------------------\n", thread_count);
+        WriteTextToFile("\n----------------Thread Count----------------");
+        WriteDoubleToFile((float) thread_count);
+
+        float mymean;
+        printf("\n start writing serial\n");
+        //Run serial
+        WriteTextToFile("\n--------Serial-------- \n");
+        if (thread_count == 1) {
+            for (int runn = 0; runn < RUN_COUNT; runn++) {
+                double start, finish, elapsed;
+                GET_TIME(start);
+                RunSerialOperations();
+                GET_TIME(finish);
+                elapsed = finish - start;
+                WriteDoubleToFile(elapsed);
+                times[runn] = elapsed;
+            }
+            WriteTextToFile("\nAverage:    ");
+            mymean = calculateMean(times);
+            WriteDoubleToFile(mymean);
+            WriteTextToFile("\nStandard Deviation:    ");
+            WriteDoubleToFile(calculateSD(times, mymean));
+        }
+        printf("\n start writing mutex\n");
+        //Run Mutex
+        WriteTextToFile("\n--------Mutex-------- \n");
+        for (int runn = 0; runn < RUN_COUNT; runn++) {
+            double start, finish, elapsed;
+            GET_TIME(start);
+            printf(" inside mutex: %d\n",runn);
+            RunMutexOperations();
+            GET_TIME(finish);
+            elapsed = finish - start;
+            WriteDoubleToFile(elapsed);
+            times[runn] = elapsed;
+        }
+        WriteTextToFile("\nAverage:    ");
+        mymean = calculateMean(times);
+        WriteDoubleToFile(mymean);
+        WriteTextToFile("\nStandard Deviation:    ");
+        WriteDoubleToFile(calculateSD(times, mymean));
+        printf("\n start writing rwlock\n");
+        //Run RWLocks
+        WriteTextToFile("\n--------Read Write Locks-------- \n");
+        for (int runn = 0; runn < RUN_COUNT; runn++) {
+            double start, finish, elapsed;
+            GET_TIME(start);
+            RunRWLockOperations();
+            GET_TIME(finish);
+            elapsed = finish - start;
+            WriteDoubleToFile(elapsed);
+            times[runn] = elapsed;
+        }
+        WriteTextToFile("\nAverage:    ");
+        mymean = calculateMean(times);
+        WriteDoubleToFile(mymean);
+        WriteTextToFile("\nStandard Deviation:    ");
+        WriteDoubleToFile(calculateSD(times, mymean));
+    }
+
+    fclose(f);
     return 0;
 }
 
@@ -151,10 +166,14 @@ int SetRunCount() {
 int FillLinkedList() {
     for (int i = 0; i < N; i++) {
         int r = GetRandomValue(0, 65535);
-        int value = Insert(r, &list.head);
-        if (value == 0) {
-            int new_ran = GetRandomValue(0, 65535);
-            Insert(new_ran, &list.head);
+        int value = Insert(r, &listSerial.head);
+        Insert(r, &listMutex.head);
+        Insert(r, &listRWLocks.head);
+        while (value == 0) {
+            r = GetRandomValue(0, 65535);
+            value = Insert(r, &listSerial.head);
+            Insert(r, &listMutex.head);
+            Insert(r, &listRWLocks.head);
         }
     }
 }
@@ -169,16 +188,20 @@ int SetOperationSequence() {
         operation_sequence[count] = 'M';
         count++;
     }
+    printf("\n count: %d\n", count);
 
     while (count < insert_count + member_count) {
         operation_sequence[count] = 'I';
         count++;
     }
+    printf("\n count: %d\n", count);
 
     while (count < delete_count + insert_count + member_count) {
         operation_sequence[count] = 'D';
         count++;
     }
+    printf("\n count: %d\n", count);
+
     for (int i = 0; i < M; i++) {
         int a = GetRandomValue(0, M - 1);
         int b = GetRandomValue(0, M - 1);
@@ -207,41 +230,54 @@ int GetRandomValue(int start, int end) {
 }
 
 int RunSerialOperations() {
+//    int dd = 0, mm = 0, ii = 0;
     for (int i = 0; i < M; i++) {
         int val = value_sequence[i];
         switch (operation_sequence[i]) {
             case 'M':
-                Member(val, list.head);
+                Member(val, listSerial.head);
+//                mm++;
                 break;
             case 'I':
-                Insert(val, &list.head);
+                Insert(val, &listSerial.head);
+//                ii++;
                 break;
             case 'D':
-                Delete(val, &list.head);
+                Delete(val, &listSerial.head);
+//                dd++;
                 break;
             default:
                 break;
         }
     }
+//    printf("\nMember: %d , Insert: %d, Delete: %d\n", mm, ii, dd);
 }
 
 int RunMutexOperations() {
+    thread_handles = malloc(sizeof(pthread_t) * thread_count);
     pthread_mutex_init(&mutex_operation, NULL);
-    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+    for (long thread_id = 0; thread_id < thread_count; thread_id++) {
         pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void *) (thread_id * chunk_length));
-    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+    }
+    for (long thread_id = 0; thread_id < thread_count; thread_id++) {
         pthread_join(thread_handles[thread_id], NULL);
-    free(thread_handles);
+    }
+
     pthread_mutex_destroy(&mutex_operation);
+    free(thread_handles);
 }
 
 int RunRWLockOperations() {
-    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+    thread_handles = malloc(sizeof(pthread_t) * thread_count);
+    for (long thread_id = 0; thread_id < thread_count; thread_id++) {
         pthread_create(&thread_handles[thread_id], NULL, CallOperationRWLocks, (void *) (thread_id * chunk_length));
-    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+    }
+    for (long thread_id = 0; thread_id < thread_count; thread_id++) {
         pthread_join(thread_handles[thread_id], NULL);
-    free(thread_handles);
+    }
+//    free(thread_handles);
     pthread_rwlock_destroy(&rwlock_operation);
+    free(thread_handles);
 }
 
 void *CallOperationMutex(void *arrayStartId) {
@@ -252,13 +288,13 @@ void *CallOperationMutex(void *arrayStartId) {
         pthread_mutex_lock(&mutex_operation);
         switch (operation_sequence[i]) {
             case 'M':
-                Member(val, list.head);
+                Member(val, listMutex.head);
                 break;
             case 'I':
-                Insert(val, &list.head);
+                Insert(val, &listMutex.head);
                 break;
             case 'D':
-                Delete(val, &list.head);
+                Delete(val, &listMutex.head);
                 break;
             default:
                 break;
@@ -276,17 +312,17 @@ void *CallOperationRWLocks(void *arrayStartId) {
         switch (operation_sequence[i]) {
             case 'M':
                 pthread_rwlock_rdlock(&rwlock_operation);
-                Member(val, list.head);
+                Member(val, listRWLocks.head);
                 pthread_rwlock_unlock(&rwlock_operation);
                 break;
             case 'I':
                 pthread_rwlock_wrlock(&rwlock_operation);
-                Insert(val, &list.head);
+                Insert(val, &listRWLocks.head);
                 pthread_rwlock_unlock(&rwlock_operation);
                 break;
             case 'D':
                 pthread_rwlock_wrlock(&rwlock_operation);
-                Delete(val, &list.head);
+                Delete(val, &listRWLocks.head);
                 pthread_rwlock_unlock(&rwlock_operation);
                 break;
             default:
