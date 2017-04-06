@@ -42,7 +42,7 @@ void *CallOperationRWLocks(void *arrayStartId);  //call operation
 
 int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
-    thread_count = 8;
+    thread_count = 2;
     chunk_length = M / thread_count;
     thread_handles = malloc(sizeof(pthread_t) * thread_count);
 
@@ -50,8 +50,8 @@ int main(int argc, char *argv[]) {
     SetValueSequence();
     SetOperationSequence();
 
-    RunSerialOperations();
-    RunMutexOperations();
+    //RunSerialOperations();
+    //RunMutexOperations();
     RunRWLockOperations();
 //    list.head = head;
 //
@@ -150,6 +150,7 @@ int RunSerialOperations() {
 }
 
 int RunMutexOperations() {
+    pthread_mutex_init(&mutex_operation, NULL);
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
         pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void*)(thread_id*chunk_length));
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
