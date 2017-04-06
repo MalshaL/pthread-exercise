@@ -29,6 +29,8 @@ int GetRandomValue(int start, int end); //generate a random value between start 
 int CallOperationSerial();  //call operation based on the array index
 
 int main(int argc, char *argv[]) {
+    srand(time(NULL));   // should only be called once
+
     thread_count = 8;
 
 //    *head = NULL;
@@ -45,8 +47,9 @@ int main(int argc, char *argv[]) {
     printf("%d \n", Member(4, list.head));
     Print(list);
 
-
-    SetOperationSequence();
+    for (int i = 0; i < 30; i++) {
+        printf("RANDMAX: %d\n", GetRandomValue(0, 65535));
+    }
 
 
     return 0;
@@ -89,7 +92,12 @@ int SetValueSequence() {
 }
 
 int GetRandomValue(int start, int end) {
+    int r = rand();
+    while (r < start || r > end) {
+        r = rand();
+    }
 
+    return r;
 }
 
 int CallOperationSerial() {
