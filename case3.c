@@ -60,8 +60,6 @@ float calculateSD(float data[], float mean);
 
 float calculateMean(float data[]);
 
-float calculateSampleCount(float mean, float sd);
-
 int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
 
@@ -89,8 +87,8 @@ int main(int argc, char *argv[]) {
         WriteTextToFile("\n----------------Thread Count----------------");
         WriteDoubleToFile((float) thread_count);
 
-        float mymean, sd;
-        printf("\n processing serial\n");
+        float mymean;
+        printf("\n start writing serial\n");
         //Run serial
         WriteTextToFile("\n--------Serial-------- \n");
         if (thread_count == 1) {
@@ -107,13 +105,9 @@ int main(int argc, char *argv[]) {
             mymean = calculateMean(times);
             WriteDoubleToFile(mymean);
             WriteTextToFile("\nStandard Deviation:    ");
-            sd = calculateSD(times, mymean);
-            WriteDoubleToFile(sd);
-            printf("Sample size: %f\n", calculateSampleCount(mymean, sd));
+            WriteDoubleToFile(calculateSD(times, mymean));
         }
-
-
-        printf("\n processing mutex\n");
+        printf("\n start writing mutex\n");
         //Run Mutex
         WriteTextToFile("\n--------Mutex-------- \n");
         for (int runn = 0; runn < RUN_COUNT; runn++) {
@@ -129,12 +123,8 @@ int main(int argc, char *argv[]) {
         mymean = calculateMean(times);
         WriteDoubleToFile(mymean);
         WriteTextToFile("\nStandard Deviation:    ");
-        sd = calculateSD(times, mymean);
-        WriteDoubleToFile(sd);
-        printf("Sample size: %f\n", calculateSampleCount(mymean, sd));
-
-
-        printf("\n processing rwlock\n");
+        WriteDoubleToFile(calculateSD(times, mymean));
+        printf("\n start writing rwlock\n");
         //Run RWLocks
         WriteTextToFile("\n--------Read Write Locks-------- \n");
         for (int runn = 0; runn < RUN_COUNT; runn++) {
@@ -150,9 +140,7 @@ int main(int argc, char *argv[]) {
         mymean = calculateMean(times);
         WriteDoubleToFile(mymean);
         WriteTextToFile("\nStandard Deviation:    ");
-        sd = calculateSD(times, mymean);
-        WriteDoubleToFile(sd);
-        printf("Sample size: %f\n", calculateSampleCount(mymean, sd));
+        WriteDoubleToFile(calculateSD(times, mymean));
     }
 
     fclose(f);
@@ -350,10 +338,5 @@ float calculateSD(float data[], float mean) {
         standardDeviation += pow(data[i] - mean, 2);
 
     return sqrt(standardDeviation / RUN_COUNT);
-}
-
-float calculateSampleCount(float mean, float sd) {
-    float sample_count = 100 * 1.96 * sd / (5 * mean);
-    return sample_count;
 }
 
