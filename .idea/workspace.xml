@@ -12,7 +12,8 @@
     <list default="true" id="7d95d750-5d37-498a-9f31-68b6c716ed6c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a.exe" afterPath="$PROJECT_DIR$/a.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trial.c" afterPath="$PROJECT_DIR$/trial.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/info/case1.txt" afterPath="$PROJECT_DIR$/info/case1.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +29,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state relative-caret-position="266">
+              <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -41,18 +42,18 @@
       <file leaf-file-name="linked_list.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/linked_list.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
+            <state relative-caret-position="17">
               <caret line="34" column="49" lean-forward="false" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trial.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="trial.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trial.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1116">
-              <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+            <state relative-caret-position="368">
+              <caret line="142" column="1" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="142" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -79,8 +80,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/trial.c" />
+        <option value="$PROJECT_DIR$/main.c" />
       </list>
     </option>
   </component>
@@ -307,12 +308,12 @@
       <option name="presentableId" value="Default" />
       <updated>1491407621427</updated>
       <workItem from="1491407623712" duration="17356000" />
-      <workItem from="1491460046358" duration="974000" />
+      <workItem from="1491460046358" duration="4187000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18330000" />
+    <option name="totallyTimeSpent" value="21543000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -381,24 +382,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/linked_list.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
+        <state relative-caret-position="17">
           <caret line="34" column="49" lean-forward="false" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="20" lean-forward="false" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trial.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1116">
-          <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+        <state relative-caret-position="368">
+          <caret line="142" column="1" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="142" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="72" column="26" lean-forward="false" selection-start-line="72" selection-start-column="26" selection-end-line="72" selection-end-column="26" />
           <folding />
         </state>
       </provider>

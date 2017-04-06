@@ -2,7 +2,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <math.h>
 #include "linked_list.h"
+#include "timer.h"
 
 #define RUN_COUNT 10
 #define  N  1000
@@ -20,9 +22,21 @@ char operation_sequence[M];
 int value_sequence[M];
 int chunk_length;
 
-pthread_t* thread_handles;
+pthread_t *thread_handles;
 pthread_mutex_t mutex_operation;
 pthread_rwlock_t rwlock_operation;
+
+const char *filename = "info/case1.txt";
+
+int threadcounts[] = {1, 2, 4, 8};
+int thread_count = 0;
+FILE *f;
+
+float times[RUN_COUNT];
+
+
+int WriteTextToFile(char *mytext); //trial method
+int WriteDoubleToFile(float mytext);
 
 int SetRunCount();
 
@@ -40,6 +54,10 @@ int RunRWLockOperations(); //create join and free the threads
 void *CallOperationMutex(void *arrayStartId);  //call operation
 void *CallOperationRWLocks(void *arrayStartId);  //call operation
 
+float calculateSD(float data[], float mean);
+
+float calculateMean(float data[]);
+
 int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
     thread_count = 2;
@@ -50,21 +68,79 @@ int main(int argc, char *argv[]) {
     SetValueSequence();
     SetOperationSequence();
 
-    //RunSerialOperations();
-    //RunMutexOperations();
+    RunSerialOperations();
+    RunMutexOperations();
     RunRWLockOperations();
-//    list.head = head;
-//
-//    Insert(5, &list.head);
-//    Insert(3, &list.head);
-//    Insert(7, &list.head);
-//    Insert(1, &list.head);
-//    Insert(9, &list.head);
-//    Insert(34, &list.head);
-//    Delete(1, &list.head);
-//    printf("%d \n", Member(4, list.head));
-    Print(list);
 
+//    f = fopen(filename, "a");
+//    if (f == NULL) {
+//        printf("Error\n");
+//        exit(1);
+//    }
+//    WriteTextToFile("Case 1: \n");
+//    for (int mythreadcount = 0; mythreadcount < 4; mythreadcount++) {
+//        thread_count = threadcounts[mythreadcount];
+//
+//        WriteTextToFile("\n----------------Thread Count----------------");
+//        WriteDoubleToFile((float) thread_count);
+//
+//        float mymean;
+//
+//        //Run serial
+//        WriteTextToFile("\n--------Serial-------- \n");
+//        if (thread_count == 1) {
+//            for (int runn = 0; runn < RUN_COUNT; runn++) {
+//                double start, finish, elapsed;
+//                GET_TIME(start);
+//                RunSerialOperations();
+//                GET_TIME(finish);
+//                elapsed = finish - start;
+//                WriteDoubleToFile(elapsed);
+//                times[runn] = elapsed;
+//            }
+//            WriteTextToFile("\nAverage:    ");
+//            mymean = calculateMean(times);
+//            WriteDoubleToFile(mymean);
+//            WriteTextToFile("\nStandard Deviation:    ");
+//            WriteDoubleToFile(calculateSD(times, mymean));
+//        }
+//
+//        //Run Mutex
+//        WriteTextToFile("\n--------Mutex-------- \n");
+//        for (int runn = 0; runn < RUN_COUNT; runn++) {
+//            double start, finish, elapsed;
+//            GET_TIME(start);
+//            RunMutexOperations();
+//            GET_TIME(finish);
+//            elapsed = finish - start;
+//            WriteDoubleToFile(elapsed);
+//            times[runn] = elapsed;
+//        }
+//        WriteTextToFile("\nAverage:    ");
+//        mymean = calculateMean(times);
+//        WriteDoubleToFile(mymean);
+//        WriteTextToFile("\nStandard Deviation:    ");
+//        WriteDoubleToFile(calculateSD(times, mymean));
+//
+//        //Run RWLocks
+//        WriteTextToFile("\n--------Read Write Locks-------- \n");
+//        for (int runn = 0; runn < RUN_COUNT; runn++) {
+//            double start, finish, elapsed;
+//            GET_TIME(start);
+//            RunRWLockOperations();
+//            GET_TIME(finish);
+//            elapsed = finish - start;
+//            WriteDoubleToFile(elapsed);
+//            times[runn] = elapsed;
+//        }
+//        WriteTextToFile("\nAverage:    ");
+//        mymean = calculateMean(times);
+//        WriteDoubleToFile(mymean);
+//        WriteTextToFile("\nStandard Deviation:    ");
+//        WriteDoubleToFile(calculateSD(times, mymean));
+//    }
+//
+//    fclose(f);
     return 0;
 }
 
@@ -73,12 +149,12 @@ int SetRunCount() {
 }
 
 int FillLinkedList() {
-    for (int i = 0; i<N; i++) {
+    for (int i = 0; i < N; i++) {
         int r = GetRandomValue(0, 65535);
-        int value = Insert( r, &list.head );
-        if (value == 0){
+        int value = Insert(r, &list.head);
+        if (value == 0) {
             int new_ran = GetRandomValue(0, 65535);
-            Insert( new_ran, &list.head );
+            Insert(new_ran, &list.head);
         }
     }
 }
@@ -152,7 +228,7 @@ int RunSerialOperations() {
 int RunMutexOperations() {
     pthread_mutex_init(&mutex_operation, NULL);
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
-        pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void*)(thread_id*chunk_length));
+        pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void *) (thread_id * chunk_length));
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
         pthread_join(thread_handles[thread_id], NULL);
     free(thread_handles);
@@ -161,7 +237,7 @@ int RunMutexOperations() {
 
 int RunRWLockOperations() {
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
-        pthread_create(&thread_handles[thread_id], NULL, CallOperationRWLocks, (void*)(thread_id*chunk_length));
+        pthread_create(&thread_handles[thread_id], NULL, CallOperationRWLocks, (void *) (thread_id * chunk_length));
     for (long thread_id = 0; thread_id < thread_count; thread_id++)
         pthread_join(thread_handles[thread_id], NULL);
     free(thread_handles);
@@ -218,3 +294,32 @@ void *CallOperationRWLocks(void *arrayStartId) {
         }
     }
 }
+
+
+int WriteTextToFile(char *mytext) {
+    fprintf(f, "%s\n", mytext);
+}
+
+int WriteDoubleToFile(float mytext) {
+    fprintf(f, "%f\n", mytext);
+}
+
+float calculateMean(float data[]) {
+    float sum = 0.0, mean = 0.0;
+    for (int i = 0; i < RUN_COUNT; ++i) {
+        sum += data[i];
+    }
+
+    mean = sum / RUN_COUNT;
+    return mean;
+}
+
+float calculateSD(float data[], float mean) {
+    float sum = 0.0, standardDeviation = 0.0;
+
+    for (int i = 0; i < RUN_COUNT; ++i)
+        standardDeviation += pow(data[i] - mean, 2);
+
+    return sqrt(standardDeviation / RUN_COUNT);
+}
+
