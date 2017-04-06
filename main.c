@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "linked_list.h"
 
 #define RUN_COUNT 10
@@ -18,6 +19,12 @@ struct list list;
 char operation_sequence[M];
 int value_sequence[M];
 int chunk_length;
+
+pthread_t* thread_handles;
+pthread_mutex_t mutex_operation;
+pthread_rwlock_t rwlock_operation;
+
+int SetRunCount();
 
 int FillLinkedList();   //fill linked list with n random unique values
 
@@ -37,12 +44,15 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
     thread_count = 8;
     chunk_length = M / thread_count;
+    thread_handles = malloc(sizeof(pthread_t) * thread_count);
 
+    FillLinkedList();
     SetValueSequence();
     SetOperationSequence();
 
     RunSerialOperations();
-
+    RunMutexOperations();
+    RunRWLockOperations();
 //    list.head = head;
 //
 //    Insert(5, &list.head);
@@ -53,13 +63,24 @@ int main(int argc, char *argv[]) {
 //    Insert(34, &list.head);
 //    Delete(1, &list.head);
 //    printf("%d \n", Member(4, list.head));
-//    Print(list);
+    Print(list);
 
     return 0;
 }
 
-int FillLinkedList() {
+int SetRunCount() {
 
+}
+
+int FillLinkedList() {
+    for (int i = 0; i<N; i++) {
+        int r = GetRandomValue(0, 65535);
+        int value = Insert( r, &list.head );
+        if (value == 0){
+            int new_ran = GetRandomValue(0, 65535);
+            Insert( new_ran, &list.head );
+        }
+    }
 }
 
 int SetOperationSequence() {
@@ -106,7 +127,6 @@ int GetRandomValue(int start, int end) {
     while (r < start || r > end) {
         r = rand();
     }
-
     return r;
 }
 
@@ -130,17 +150,21 @@ int RunSerialOperations() {
 }
 
 int RunMutexOperations() {
-    for (int thread_id = 0; thread_id < thread_count; thread_id++) {
-        //TODO initiate a thread Eg: thread_0,  pthreadcreat(... CallOperationMutex.. id)
-        //id =thread_id * chunk_length
-    }
+    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+        pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void*)(thread_id*chunk_length));
+    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+        pthread_join(thread_handles[thread_id], NULL);
+    free(thread_handles);
+    pthread_mutex_destroy(&mutex_operation);
 }
 
 int RunRWLockOperations() {
-    for (int thread_id = 0; thread_id < thread_count; thread_id++) {
-        //TODO initiate a thread Eg: thread_0,  pthreadcreat(... CallOperationRWLocks.. id)
-        //id =thread_id * chunk_length
-    }
+    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+        pthread_create(&thread_handles[thread_id], NULL, CallOperationRWLocks, (void*)(thread_id*chunk_length));
+    for (long thread_id = 0; thread_id < thread_count; thread_id++)
+        pthread_join(thread_handles[thread_id], NULL);
+    free(thread_handles);
+    pthread_rwlock_destroy(&rwlock_operation);
 }
 
 void *CallOperationMutex(void *arrayStartId) {
@@ -148,7 +172,7 @@ void *CallOperationMutex(void *arrayStartId) {
 
     for (int i = my_id; i < my_id + chunk_length; i++) {
         int val = value_sequence[i];
-        //TODO add mutexes
+        pthread_mutex_lock(&mutex_operation);
         switch (operation_sequence[i]) {
             case 'M':
                 Member(val, list.head);
@@ -162,6 +186,7 @@ void *CallOperationMutex(void *arrayStartId) {
             default:
                 break;
         }
+        pthread_mutex_unlock(&mutex_operation);
     }
 }
 
@@ -170,16 +195,22 @@ void *CallOperationRWLocks(void *arrayStartId) {
 
     for (int i = my_id; i < my_id + chunk_length; i++) {
         int val = value_sequence[i];
-        //TODO add rwlocks
+
         switch (operation_sequence[i]) {
             case 'M':
+                pthread_rwlock_rdlock(&rwlock_operation);
                 Member(val, list.head);
+                pthread_rwlock_unlock(&rwlock_operation);
                 break;
             case 'I':
+                pthread_rwlock_wrlock(&rwlock_operation);
                 Insert(val, &list.head);
+                pthread_rwlock_unlock(&rwlock_operation);
                 break;
             case 'D':
+                pthread_rwlock_wrlock(&rwlock_operation);
                 Delete(val, &list.head);
+                pthread_rwlock_unlock(&rwlock_operation);
                 break;
             default:
                 break;
