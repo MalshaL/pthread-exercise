@@ -6,7 +6,7 @@
 #include "linked_list.h"
 #include "timer.h"
 
-#define RUN_COUNT 10
+#define RUN_COUNT 50
 #define  N  1000
 #define  M  10000
 #define  M_MEMBER  0.99

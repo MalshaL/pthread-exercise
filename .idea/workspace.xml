@@ -11,6 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7d95d750-5d37-498a-9f31-68b6c716ed6c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a.exe" afterPath="$PROJECT_DIR$/a.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/case1.c" afterPath="$PROJECT_DIR$/case1.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/case2.c" afterPath="$PROJECT_DIR$/case2.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/case3.c" afterPath="$PROJECT_DIR$/case3.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/info/case1.txt" afterPath="$PROJECT_DIR$/info/case1.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
     </list>
@@ -28,21 +32,41 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+            <state relative-caret-position="136">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case1.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="case1.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/case1.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="15" column="17" lean-forward="true" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+            <state relative-caret-position="374">
+              <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case2.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case2.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case3.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/case3.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -98,6 +122,9 @@
         <option value="$PROJECT_DIR$/trial.c" />
         <option value="$PROJECT_DIR$/mydebugger.c" />
         <option value="$PROJECT_DIR$/main.c" />
+        <option value="$PROJECT_DIR$/case1.c" />
+        <option value="$PROJECT_DIR$/case2.c" />
+        <option value="$PROJECT_DIR$/case3.c" />
       </list>
     </option>
   </component>
@@ -325,16 +352,16 @@
       <option name="presentableId" value="Default" />
       <updated>1491407621427</updated>
       <workItem from="1491407623712" duration="17356000" />
-      <workItem from="1491460046358" duration="10846000" />
+      <workItem from="1491460046358" duration="12135000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28202000" />
+    <option name="totallyTimeSpent" value="29491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06295754" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -421,18 +448,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/case1.c">
+    <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="17" lean-forward="true" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        <state relative-caret-position="136">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
+    <entry file="file://$PROJECT_DIR$/case3.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="62" column="49" lean-forward="false" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+        <state relative-caret-position="136">
+          <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case2.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/case1.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="24" lean-forward="true" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding />
         </state>
       </provider>
