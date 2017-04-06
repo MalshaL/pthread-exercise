@@ -17,8 +17,9 @@ struct list list;
 
 char operation_sequence[M];
 int value_sequence[M];
+int chunk_length;
 
-int FillLinkedList(struct list_node *head_p);   //fill linked list with n random unique values
+int FillLinkedList();   //fill linked list with n random unique values
 
 int SetOperationSequence();     //set operation_sequence with randomized 'M', 'I', or 'D'
 
@@ -26,34 +27,38 @@ int SetValueSequence();  //set the value_sequence with m random values
 
 int GetRandomValue(int start, int end); //generate a random value between start and end
 
-int CallOperationSerial();  //call operation based on the array index
+int RunSerialOperations();  //call operation
+int RunMutexOperations(); //create join and free the threads
+int RunRWLockOperations(); //create join and free the threads
+void *CallOperationMutex(void *arrayStartId);  //call operation
+void *CallOperationRWLocks(void *arrayStartId);  //call operation
 
 int main(int argc, char *argv[]) {
     srand(time(NULL));   // should only be called once
-
     thread_count = 8;
+    chunk_length = M / thread_count;
 
-//    *head = NULL;
-//    struct list list;
-    list.head = head;
-
-    Insert(5, &list.head);
-    Insert(3, &list.head);
-    Insert(7, &list.head);
-    Insert(1, &list.head);
-    Insert(9, &list.head);
-    Insert(34, &list.head);
-    Delete(1, &list.head);
-    printf("%d \n", Member(4, list.head));
-    Print(list);
-
+    SetValueSequence();
     SetOperationSequence();
 
+    RunSerialOperations();
+
+//    list.head = head;
+//
+//    Insert(5, &list.head);
+//    Insert(3, &list.head);
+//    Insert(7, &list.head);
+//    Insert(1, &list.head);
+//    Insert(9, &list.head);
+//    Insert(34, &list.head);
+//    Delete(1, &list.head);
+//    printf("%d \n", Member(4, list.head));
+//    Print(list);
 
     return 0;
 }
 
-int FillLinkedList(struct list_node *head_p) {
+int FillLinkedList() {
 
 }
 
@@ -84,9 +89,9 @@ int SetOperationSequence() {
         operation_sequence[a] = operation_sequence[b];
         operation_sequence[b] = temp;
     }
-    for (int i = 0; i < M; i++) {
-        printf("%c\n", operation_sequence[i]);
-    }
+//    for (int i = 0; i < M; i++) {
+//        printf("%c\n", operation_sequence[i]);
+//    }
 
 }
 
@@ -105,9 +110,67 @@ int GetRandomValue(int start, int end) {
     return r;
 }
 
-int CallOperationSerial() {
+int RunSerialOperations() {
     for (int i = 0; i < M; i++) {
         int val = value_sequence[i];
+        switch (operation_sequence[i]) {
+            case 'M':
+                Member(val, list.head);
+                break;
+            case 'I':
+                Insert(val, &list.head);
+                break;
+            case 'D':
+                Delete(val, &list.head);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+int RunMutexOperations() {
+    for (int thread_id = 0; thread_id < thread_count; thread_id++) {
+        //TODO initiate a thread Eg: thread_0,  pthreadcreat(... CallOperationMutex.. id)
+        //id =thread_id * chunk_length
+    }
+}
+
+int RunRWLockOperations() {
+    for (int thread_id = 0; thread_id < thread_count; thread_id++) {
+        //TODO initiate a thread Eg: thread_0,  pthreadcreat(... CallOperationRWLocks.. id)
+        //id =thread_id * chunk_length
+    }
+}
+
+void *CallOperationMutex(void *arrayStartId) {
+    int my_id = (int) arrayStartId;
+
+    for (int i = my_id; i < my_id + chunk_length; i++) {
+        int val = value_sequence[i];
+        //TODO add mutexes
+        switch (operation_sequence[i]) {
+            case 'M':
+                Member(val, list.head);
+                break;
+            case 'I':
+                Insert(val, &list.head);
+                break;
+            case 'D':
+                Delete(val, &list.head);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+void *CallOperationRWLocks(void *arrayStartId) {
+    int my_id = (int) arrayStartId;
+
+    for (int i = my_id; i < my_id + chunk_length; i++) {
+        int val = value_sequence[i];
+        //TODO add rwlocks
         switch (operation_sequence[i]) {
             case 'M':
                 Member(val, list.head);
