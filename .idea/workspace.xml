@@ -10,8 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d95d750-5d37-498a-9f31-68b6c716ed6c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/a.exe" afterPath="$PROJECT_DIR$/a.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +29,7 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1774">
+            <state relative-caret-position="-1621">
               <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
               <folding />
             </state>
@@ -295,15 +294,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1491407621427</updated>
-      <workItem from="1491407623712" duration="10934000" />
+      <workItem from="1491407623712" duration="11393000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10934000" />
+    <option name="totallyTimeSpent" value="11393000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06295754" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -362,7 +361,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1774">
+        <state relative-caret-position="-1621">
           <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
           <folding />
         </state>
