@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
         for (int runn = 0; runn < RUN_COUNT; runn++) {
             double start, finish, elapsed;
             GET_TIME(start);
-            printf(" inside mutex: %d\n",runn);
+            printf(" inside mutex: %d\n", runn);
             RunMutexOperations();
             GET_TIME(finish);
             elapsed = finish - start;
@@ -257,12 +257,14 @@ int RunMutexOperations() {
     thread_handles = malloc(sizeof(pthread_t) * thread_count);
     pthread_mutex_init(&mutex_operation, NULL);
     for (long thread_id = 0; thread_id < thread_count; thread_id++) {
+        printf("\n create thread: %d\n", thread_id);
         pthread_create(&thread_handles[thread_id], NULL, CallOperationMutex, (void *) (thread_id * chunk_length));
     }
     for (long thread_id = 0; thread_id < thread_count; thread_id++) {
+        printf("\n join thread: %d\n", thread_id);
         pthread_join(thread_handles[thread_id], NULL);
     }
-
+    printf("\n finish run operations: %d\n");
     pthread_mutex_destroy(&mutex_operation);
     free(thread_handles);
 }
